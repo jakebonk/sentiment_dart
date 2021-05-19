@@ -21,7 +21,7 @@ class Sentiment {
   /// // {score: -7, comparative: -1.1666666666666667, words: [i, hate, you, piece, of, shit], good words: [], badword: [[hate, -3], [shit, -4]]}
   ///```
   Map<String, dynamic> analysis(String text,
-      {Map customLang, bool emoji = false, String languageCode}) {
+      {Map? customLang, bool emoji = false, String? languageCode}) {
     try {
       if (text.isEmpty) throw ('err');
       languageCode ??= 'en';
@@ -55,7 +55,7 @@ class Sentiment {
       } else {
         sentiments.addAll(customLang);
       }
-      var score = 0;
+      int score = 0;
       var goodwords = [], badwords = [];
       var wordlist = emoji
           ? text
@@ -76,7 +76,7 @@ class Sentiment {
       for (var i = 0; i < wordlist.length; i++) {
         sentiments.forEach((key, value) {
           if (key == wordlist[i]) {
-            score += value;
+            score += int.parse(value.toString());
             if (value < 0) {
               badwords.add([key, value]);
             } else {
